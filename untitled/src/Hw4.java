@@ -57,9 +57,10 @@ public class Hw4 {
          * task #7
          * I don't know how to solve this task
          */
-        System.out.println("Task #6");
-        int[] arr7 = {1, 1, 1, 5, 5, 5, 5, 9};
-        //findTheNumber(arr7);
+        System.out.println("Task #7");
+        int[] arr7 = { 9, 1, 1, 1, 5, 5, 5, 5, 9};
+        System.out.println(findTheNumber(arr7));
+        System.out.println();
 
         /**
          * task #8
@@ -173,31 +174,27 @@ public class Hw4 {
         }
     }
 
-    // не получилась
-    /*public static void findTheNumber(int[] arr) {
-        int counter = 0, temp = 0, num = 0;
+    // не получилась 111 555 9
+    public static int findTheNumber(int[] arr) {
+        int maxCounter = 1, num = 0;
         sort(arr);
-        for (int i = 0, j = 0; i < arr.length;) {
-            if (arr[j] == arr[i]) {
-                counter++;
-                if(i<7) {
-                    i++;
-                }
-                if(counter < temp){
-                    num = arr[j];
-                }
-            } else if (counter > temp) {
-                temp = counter;
-                num = arr[j];
-                counter = 0;
+        int tempCounter = 1;
+        for (int i = 0; i < arr.length -1; i++) {
+            if (arr[i] == arr[i + 1]) {
+                tempCounter++;
+            }
+            else if (maxCounter >= tempCounter) {
+                maxCounter = tempCounter;
+                num = arr[i];
+                tempCounter = 1;
             }
             else {
-                j++;
-                counter = 0;
+                maxCounter = tempCounter;
+                tempCounter = 1;
             }
         }
-        System.out.println(num);
-    }*/
+        return num;
+    }
 
     public static int[][] initOfDiag(int[][] arr) {
         for (int i = 0; i < arr.length; i++) {
