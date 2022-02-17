@@ -58,7 +58,7 @@ public class Hw4 {
          * I don't know how to solve this task
          */
         System.out.println("Task #7");
-        int[] arr7 = { 9, 1, 1, 1, 5, 5, 5, 5, 9};
+        int[] arr7 = {9, 1, 1, 1, 5, 5, 5, 5, 9};
         System.out.println(findTheNumber(arr7));
         System.out.println();
 
@@ -75,16 +75,20 @@ public class Hw4 {
         }
         initOfDiag(arr8);
         print2(arr8);
+        System.out.println();
 
         /**
          * task 9
-         * I don't know how to solve this task
          */
+        System.out.println("task #9");
+        int[] arr9 = {1, 1, 1, 2, 1};
+        System.out.println(checkBalance(arr9));
 
         /**
          * task 10
-         * I don't know how to solve this task
          */
+        int[] arr10 = {1, 2, 3, 4, 5};
+        task10(arr10, 3);
     }
 
     public static void print(int[] arr) {
@@ -174,21 +178,19 @@ public class Hw4 {
         }
     }
 
-    // не получилась 111 555 9
+    // не получилась
     public static int findTheNumber(int[] arr) {
         int maxCounter = 1, num = 0;
         sort(arr);
         int tempCounter = 1;
-        for (int i = 0; i < arr.length -1; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] == arr[i + 1]) {
                 tempCounter++;
-            }
-            else if (maxCounter >= tempCounter) {
+            } else if (maxCounter >= tempCounter) {
                 maxCounter = tempCounter;
                 num = arr[i];
                 tempCounter = 1;
-            }
-            else {
+            } else {
                 maxCounter = tempCounter;
                 tempCounter = 1;
             }
@@ -202,5 +204,56 @@ public class Hw4 {
             arr[arr.length - 1 - i][i] = 1;
         }
         return arr;
+    }
+
+    /**
+     * Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть true, если в
+     * массиве есть место, в котором сумма левой и правой части массива равны. Примеры:
+     * checkBalance([2, 2, 2, 1, 2, 2, || 10, 1]) → true, checkBalance([1, 1, 1, || 2, 1]) → true, граница показана
+     * символами ||, эти символы в массив не входят.
+     */
+    public static boolean checkBalance(int[] arr) {
+        int sum = 0;
+        boolean flag = false;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+        int sumRes = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sumRes += arr[i];
+            if (sumRes == sum - sumRes) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    public static void task10(int[] arr, int n) {
+        if (n != 0) {
+            if (n > 0) {
+                for (int i = 0; i < n; i++) {
+                    int temp = arr[0];
+                    arr[0] = arr[arr.length - 1];
+
+                    for (int j = 1; j < arr.length - 1; j++) {
+                        arr[arr.length - j] = arr[arr.length - j - 1];
+                    }
+
+                    arr[1] = temp;
+                }
+            } else if (n < 0) {
+                for (int i = 0; i > n; n--) {
+                    int temp = arr[arr.length - 1];
+                    arr[arr.length - 1] = arr[0];
+
+                    for (int j = 1; j < arr.length - 1; j++) {
+                        arr[j - 1] = arr[j];
+                    }
+
+                    arr[arr.length - 2] = temp;
+                }
+            }
+        }
+        print(arr);
     }
 }
