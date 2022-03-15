@@ -9,7 +9,6 @@ public abstract class Animal {
     protected String name;
 
     protected int run_limit;
-    protected boolean passing;
     public Animal(){}
 
     public String getName() {
@@ -23,9 +22,5 @@ public abstract class Animal {
 
     public int getRun_limit() {
         return run_limit;
-    }
-
-    public void setPassing(boolean passing){
-        this.passing = passing;
     }
 }

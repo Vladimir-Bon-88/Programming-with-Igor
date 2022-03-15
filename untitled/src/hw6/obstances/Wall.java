@@ -9,7 +9,7 @@ import hw6.animals.Jumpable;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Wall implements Obstances{
+public class Wall implements Obstance {
     private float height;
 
     public float getHeight() {
@@ -26,5 +26,10 @@ public class Wall implements Obstances{
             return ((Jumpable) animal).jump(height);
         else
             return false;
+    }
+
+    @Override
+    public String getName(){
+        return "wall";
     }
 }

@@ -6,16 +6,20 @@ import java.util.Random;
 
 public class Team {
     private String name;
-    public Animal[] animals = {new Cat("Barsik"), new Hen("Petya"), new Hippo("Andrew")};
-    public Animal[] teamAnimal = new Animal[4];
-    Random random = new Random();
+    private Animal[] teamAnimal = new Animal[4];
 
     public Team(String name) {
+        Random random = new Random();
+        Animal[] animals = {new Cat("Barsik"), new Hen("Petya"), new Hippo("Andrew")};
         this.name = name;
         for(int i = 0; i < teamAnimal.length; i++){
             int temp = random.nextInt(3);
             teamAnimal[i] = animals[temp];
         }
+    }
+
+    public Animal[] getTeamAnimal() {
+        return teamAnimal;
     }
 
     public String getName() {
@@ -24,29 +28,24 @@ public class Team {
     public void showInfo(){
         System.out.println("Name of team: " + name);
         System.out.println("Information about players: ");
-        for(int i = 0; i < teamAnimal.length; i++){
-            System.out.println("Name of animal: " + teamAnimal[i]);
-            System.out.println("Run limit: " + teamAnimal[i].getRun_limit());
-            if(teamAnimal[i] instanceof Jumpable){
-                System.out.println("limit of jumping: " + ((Jumpable) teamAnimal[i]).getJump());
+        for (Animal animal : teamAnimal) {
+            System.out.println("Name of animal: " + animal);
+            System.out.println("Run limit: " + animal.getRun_limit());
+            if (animal instanceof Jumpable) {
+                System.out.println("limit of jumping: " + ((Jumpable) animal).getJump());
             }
-            if(teamAnimal[i] instanceof Swimable){
-                System.out.println("limit of swimming: " + (((Swimable) teamAnimal[i]).getSwim()));
+            if (animal instanceof Swimable) {
+                System.out.println("limit of swimming: " + (((Swimable) animal).getSwim()));
             }
         }
     }
 
-    public void passedObstances(){
-        for(int i = 0; i < teamAnimal.length; i++){
-            if(teamAnimal[i].passing){
-                System.out.println(teamAnimal[i].getName() + " finished course successfully");
-                break;
-            }
-            else {
-                System.out.println(teamAnimal[i].getName() + " can't finish course successfully");
-                break;
-            }
+    public void showPassedInfo(Animal animal, boolean passing, String nameOfObstance){
+            if (passing) {
+                System.out.println(animal.getName() + " could pass " + nameOfObstance + " successfully");
 
-        }
+            } else {
+                System.out.println(animal.getName() + " couldn't pass " + nameOfObstance + " successfully");
+            }
     }
 }

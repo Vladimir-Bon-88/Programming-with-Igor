@@ -2,6 +2,7 @@ package hw6.obstances;
 
 import hw6.animals.Animal;
 
-public interface Obstances {
+public interface Obstance {
     boolean doIt(Animal animal);
+    String getName();
 }

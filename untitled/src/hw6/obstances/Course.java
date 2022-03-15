@@ -1,12 +1,19 @@
 package hw6.obstances;
 
+import hw6.animals.Animal;
 import hw6.animals.Team;
 
 import java.util.Random;
 
 public class Course {
-    Random random = new Random();
-    Obstances[] obstances = {(Obstances) new Track(random.nextInt(120)), (Obstances) new Water(random.nextInt(111)), (Obstances) new Wall(random.nextFloat() + 10)};
+    private Obstance[] obstances = new Obstance[3];
+
+    public Course() {
+        Random random = new Random();
+        obstances[0] = new Track(random.nextInt(120));
+        obstances[1] = new Water(random.nextInt(111));
+        obstances[2] = new Wall(random.nextFloat() + 10);
+    }
 
     @Override
     public String toString() {
@@ -16,16 +23,12 @@ public class Course {
     }
 
     public void passingOfObstances(Team team) {
-        for (int i = 0; i < team.teamAnimal.length; i++) {
+        boolean result;
+        for (Animal animal : team.getTeamAnimal()) {
             System.out.println();
-            for (int j = 0; j < obstances.length; j++) {
-                if (!obstances[j].doIt(team.teamAnimal[i])) {
-                    team.teamAnimal[i].setPassing(false);
-                    team.passedObstances();
-                } else {
-                    team.teamAnimal[i].setPassing(true);
-                    team.passedObstances();;
-                }
+            for (Obstance obstance : obstances) {
+                result = obstance.doIt(animal);
+                team.showPassedInfo(animal, result, obstance.getName());
             }
         }
     }

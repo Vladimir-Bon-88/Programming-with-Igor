@@ -8,7 +8,7 @@ import hw6.animals.Swimable;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Water implements Obstances{
+public class Water implements Obstance {
     private int waterLength;
 
     public int getWaterLength() {
@@ -25,5 +25,10 @@ public class Water implements Obstances{
             return ((Swimable) animal).swim(waterLength);
         else
             return false;
+    }
+
+    @Override
+    public String getName(){
+        return "water";
     }
 }

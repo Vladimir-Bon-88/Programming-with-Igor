@@ -8,7 +8,7 @@ import hw6.animals.Animal;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Track implements Obstances{
+public class Track implements Obstance {
     protected int length;
 
     public Track(int length) {
@@ -18,6 +18,11 @@ public class Track implements Obstances{
     @Override
     public boolean doIt(Animal animal) {
         return animal.run(length);
+    }
+
+    @Override
+    public String getName(){
+        return "track";
     }
 
     public int getLength() {

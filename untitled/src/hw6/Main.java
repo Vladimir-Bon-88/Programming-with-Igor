@@ -3,9 +3,6 @@ package hw6;
 
 import hw6.animals.*;
 import hw6.obstances.Course;
-import hw6.obstances.Track;
-import hw6.obstances.Wall;
-import hw6.obstances.Water;
 
 /**
  * Write a description of class Main here.
@@ -28,6 +25,6 @@ public class Main {
 
         course.passingOfObstances(team1);
 
-        team1.passedObstances();
+        //team1.showPassedInfo();
     }
 }
