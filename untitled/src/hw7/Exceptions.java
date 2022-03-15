@@ -1,5 +1,6 @@
 package hw7;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Exceptions {
@@ -14,22 +15,24 @@ public class Exceptions {
         }
     }
 
+    // TODO: проверка второго массива на длину
     public static void task1(String[][] arr) throws MyArraySizeException, MyArrayDataException {
         int sum = 0;
-        if (arr.length > 4) {
+        if (arr.length > 4 || arr[0].length > 4) {
             throw new MyArraySizeException("Wrong size of array");
         }
 
         initializationOfArray(arr);
 
-        showArray(arr);
+        //showArray(arr);
+
+        System.out.println(Arrays.deepToString(arr));
 
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
-                char[] arrChars = arr[i][j].toCharArray();
-                if (Character.isDigit(arrChars[0])) {
+                try {
                     sum += Integer.parseInt(arr[i][j]);
-                } else{
+                } catch(NumberFormatException e){
                     throw new MyArrayDataException("Wrong symbol in " + i + " " + j);
                 }
             }
@@ -41,10 +44,10 @@ public class Exceptions {
         Random random = new Random();
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
-                StringBuilder stringBuilder = new StringBuilder();
-                char sym = (char) (random.nextInt(2) + 56);
-                stringBuilder.append(Character.toString(sym));
-                arr[i][j] = stringBuilder.toString();
+                //StringBuilder stringBuilder = new StringBuilder();
+                //char symbol = (char) (random.nextInt(94) + 33);
+                //stringBuilder.append(Character.toString(sym));
+                arr[i][j] = String.valueOf(random.nextInt(94) + 33);
             }
         }
     }
