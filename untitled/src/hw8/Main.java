@@ -21,7 +21,7 @@ public class Main {
          */
 
         Box<Apple> appleBox1 = new Box<>();
-        Box<Orange> appleBox2 = new Box<>();
+        Box<Apple> appleBox2 = new Box<>();
         Box<Orange> orangeBox1 = new Box<>();
         Box<Orange> orangeBox2 = new Box<>();
 
@@ -43,12 +43,12 @@ public class Main {
         } else System.out.println("Boxes are equals");
 
         orangeBox1.moveFruitTo(orangeBox2);
-        System.out.println("Size of the second box: " + orangeBox2.getNumberOfFruit());
-        System.out.println("Size of the first box: " + orangeBox1.getNumberOfFruit());
+        System.out.println("Size of the second box: " + orangeBox2.getNumberOfFruits());
+        System.out.println("Size of the first box: " + orangeBox1.getNumberOfFruits());
 
         appleBox1.moveFruitTo(appleBox2);
-        System.out.println("Size of the second box: " + appleBox2.getNumberOfFruit());
-        System.out.println("Size of the first box: " + appleBox1.getNumberOfFruit());
+        System.out.println("Size of the second box: " + appleBox2.getNumberOfFruits());
+        System.out.println("Size of the first box: " + appleBox1.getNumberOfFruits());
 
     }
 }
