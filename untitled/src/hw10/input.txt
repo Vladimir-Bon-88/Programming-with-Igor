@@ -1,0 +1,6 @@
+5;Igor;25
+4;Vova;19
+3;Anna;20
+2;Alex;32
+1;Ivan;41
+11;Vanya;41
