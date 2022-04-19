@@ -1,6 +1,6 @@
-package hw10;
+package hw10.model;
 
-import java.util.Scanner;
+import java.util.Objects;
 
 public class User {
     private int id;
@@ -28,14 +28,6 @@ public class User {
         return age;
     }
 
-    public void read(Scanner reader) {
-        String str = reader.nextLine();
-        String[] strArray = str.split(";");
-        id = Integer.parseInt(strArray[0]);
-        name = strArray[1];
-        age = Integer.parseInt(strArray[2]);
-    }
-
     @Override
     public String toString() {
         return "Id: " + getId() + "," + " name: " + getName() + "," + " age: " + getAge() + "\n";
@@ -46,6 +38,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && name.equals(user.name);
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
