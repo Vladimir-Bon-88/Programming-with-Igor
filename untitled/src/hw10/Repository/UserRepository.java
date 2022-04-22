@@ -6,28 +6,30 @@ import hw10.utils.Utils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserRepository {
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
+    private final File file;
 
     public UserRepository() {
-        File file = new File(Utils.getProp().getProperty("pathname"));
-        try {
-            if (!file.exists()) {
+        file = new File(Utils.getProp().getProperty("pathname"));
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            bufferedReader = new BufferedReader(new FileReader(file));
-            bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     public List<User> getAll() {
+        return readFromFile();
+    }
+
+    private List<User> readFromFile() {
         List<User> users = new ArrayList<>();
         String str;
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             while ((str = bufferedReader.readLine()) != null) {
                 String[] strArr = str.split(";");
                 int id = Integer.parseInt(strArr[0]);
@@ -41,21 +43,21 @@ public class UserRepository {
         return users;
     }
 
-    public User getById(int id) {
+    public Optional<User> getById(int id) {
         List<User> users = getAll();
         for (User userI : users) {
             if (userI.getId() == id) {
-                return userI;
+                return Optional.of(userI);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public void addToFile(User user) {
-        UserRepository userRepository = new UserRepository();
-        List<User> users = userRepository.getAll();
-        try {
-            bufferedWriter.write("\n" + String.valueOf(user.getId()) + ";" + user.getName() + ";" + String.valueOf(user.getAge()));
+        List<User> users = getAll();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+            bufferedWriter.newLine();
+            bufferedWriter.write(user.getId() + ";" + user.getName() + ";" + user.getAge());
             users.add(user);
             bufferedWriter.flush();
         } catch (IOException e) {
@@ -64,13 +66,25 @@ public class UserRepository {
     }
 
     public void remove(User user) {
-//        UserRepository userRepository = new UserRepository();
-//        List<User> users = userRepository.getAll();
         List<User> users = getAll();
         for (User userI : users) {
             if (userI.equals(user)) {
                 users.remove(user);
+                break;
             }
+        }
+        save(users);
+    }
+
+    private void save(List<User> users) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            for(User userI : users) {
+                bufferedWriter.write(userI.getId() + ";" + userI.getName() + ";" + userI.getAge());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

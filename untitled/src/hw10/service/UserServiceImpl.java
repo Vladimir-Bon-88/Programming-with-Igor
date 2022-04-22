@@ -6,6 +6,7 @@ import hw10.exceptions.UserNotExistException;
 import hw10.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
@@ -16,29 +17,32 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addToFile(User user) {
-        User userForCheck = userRepository.getById(user.getId());
-        if(userForCheck != null){
-            throw new UserAlreadyExistException("User has been already existed");
+        Optional<User> userOptional = userRepository.getById(user.getId());
+        if(userOptional.isPresent()){
+            throw new UserAlreadyExistException("User already exist");
         }
         userRepository.addToFile(user);
     }
 
     @Override
     public void remove(User user) {
-        User userForCheck = userRepository.getById(user.getId());
-        if(userForCheck == null){
-            throw new UserNotExistException("User hasn't been existed");
+        Optional<User> userOptional = userRepository.getById(user.getId());
+        if(userOptional.isEmpty()){
+            throw new UserNotExistException("User not exist");
         }
         userRepository.remove(user);
     }
 
     @Override
+    // TODO: Add Id information
     public User getById(int id) {
-        User userForCheck = userRepository.getById(id);
-        if(userForCheck == null){
-            throw new UserNotExistException("User hasn't been existed");
+        //Optional<User> userOptional = userRepository.getById(id);
+        /*if(userOptional.isEmpty()){
+            throw new UserNotExistException("User not exist");
         }
-        return userRepository.getById(id);
+        return userOptional.get();*/
+        return userRepository.getById(id)
+                .orElseThrow(() -> new UserNotExistException("User not exist"));
     }
 
     @Override
