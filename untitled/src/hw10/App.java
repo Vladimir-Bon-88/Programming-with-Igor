@@ -5,7 +5,6 @@ import hw10.model.User;
 import hw10.service.UserService;
 import hw10.service.UserServiceImpl;
 
-import java.util.function.Consumer;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -15,7 +14,7 @@ public class App {
         userService.addToFile(new User(55, "Ira", 66));
         userService.remove(user1);
 
-        userService.getAll().forEach(itr -> System.out.println(itr));
+        userService.getAll().forEach(user -> System.out.println(user));
 
     }
 }
